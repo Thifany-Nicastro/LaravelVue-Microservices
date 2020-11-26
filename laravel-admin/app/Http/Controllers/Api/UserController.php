@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\UserRequest;
+use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
@@ -17,7 +18,7 @@ class UserController extends Controller
     public function index()
     {
         return response([
-            'users' => User::all()
+            'users' => User::paginate()
         ], 200);
     }
 
@@ -44,7 +45,7 @@ class UserController extends Controller
     {
         return response([
             'user' => $user
-        ], 200);
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -57,7 +58,7 @@ class UserController extends Controller
     public function update(UserRequest $request, User $user)
     {
         return response([
-            'user' => $user->update($request->all())
+            'user' => tap($user)->update($request->validated())
         ], 202);
     }
 
