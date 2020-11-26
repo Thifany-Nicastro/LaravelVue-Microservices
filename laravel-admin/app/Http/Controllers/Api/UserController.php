@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Models\User;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Http\Requests\UserRequest;
 
 class UserController extends Controller
 {
@@ -25,10 +27,10 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
         return response([
-            'user' => User::create($request->all())
+            'user' => User::create($request->validated())
         ], 201);
     }
 
@@ -52,9 +54,11 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UserRequest $request, User $user)
     {
-        //
+        return response([
+            'user' => $user->update($request->all())
+        ], 202);
     }
 
     /**
@@ -65,6 +69,6 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        return response([], 204);
     }
 }
