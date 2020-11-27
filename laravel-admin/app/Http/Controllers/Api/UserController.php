@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\UserRequest;
 use Illuminate\Http\Response;
+use App\Http\Resources\UserResource;
 
 class UserController extends Controller
 {
@@ -18,7 +19,7 @@ class UserController extends Controller
     public function index()
     {
         return response([
-            'users' => User::paginate()
+            'users' => UserResource::collection(User::paginate())->response()->getData()
         ], Response::HTTP_OK);
     }
 
@@ -31,7 +32,7 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         return response([
-            'user' => User::create($request->validated())
+            'user' => new UserResource(User::create($request->validated())->refresh())
         ], Response::HTTP_CREATED);
     }
 
@@ -44,7 +45,7 @@ class UserController extends Controller
     public function show(User $user)
     {
         return response([
-            'user' => $user
+            'user' => new UserResource($user)
         ], Response::HTTP_OK);
     }
 
@@ -70,8 +71,6 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        return response([
-            'user' => $user->delete()
-        ], Response::HTTP_NO_CONTENT);
+        return response($user->delete(), Response::HTTP_NO_CONTENT);
     }
 }
