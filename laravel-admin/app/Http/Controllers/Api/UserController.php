@@ -18,13 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        // return response([
-        //     'users' => UserResource::collection(User::paginate())->response()->getData()
-        // ], Response::HTTP_OK);
-
-        return UserResource::collection(User::paginate())
-            ->response()
-            ->setStatusCode(Response::HTTP_OK);
+        return UserResource::collection(User::paginate());
     }
 
     /**
@@ -35,9 +29,7 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        return response([
-            'user' => new UserResource(User::create($request->validated())->refresh())
-        ], Response::HTTP_CREATED);
+        return response(new UserResource(User::create($request->validated())->refresh()), Response::HTTP_CREATED);
     }
 
     /**
@@ -48,9 +40,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return response([
-            'user' => new UserResource($user)
-        ], Response::HTTP_OK);
+        return new UserResource($user);
     }
 
     /**
@@ -62,9 +52,7 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user)
     {
-        return response([
-            'user' => new UserResource(tap($user)->update($request->validated()))
-        ], Response::HTTP_ACCEPTED);
+        return response(new UserResource(tap($user)->update($request->validated())), Response::HTTP_ACCEPTED);
     }
 
     /**
