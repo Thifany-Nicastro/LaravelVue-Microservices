@@ -18,9 +18,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        return response([
-            'users' => UserResource::collection(User::paginate())->response()->getData()
-        ], Response::HTTP_OK);
+        // return response([
+        //     'users' => UserResource::collection(User::paginate())->response()->getData()
+        // ], Response::HTTP_OK);
+
+        return UserResource::collection(User::paginate())
+            ->response()
+            ->setStatusCode(Response::HTTP_OK);
     }
 
     /**
