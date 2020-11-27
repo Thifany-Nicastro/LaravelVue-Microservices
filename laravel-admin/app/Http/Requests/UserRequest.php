@@ -25,9 +25,9 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => ['required', 'email', Rule::unique('users')->ignore($this->user)],
+            'first_name' => 'sometimes|required',
+            'last_name' => 'sometimes|required',
+            'email' => ['sometimes', 'required', 'email', Rule::unique('users')->ignore($this->user)],
             'password' => 'sometimes|required|min:8',
         ];
     }

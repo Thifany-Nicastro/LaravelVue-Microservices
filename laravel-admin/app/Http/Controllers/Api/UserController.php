@@ -19,7 +19,7 @@ class UserController extends Controller
     {
         return response([
             'users' => User::paginate()
-        ], 200);
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -32,7 +32,7 @@ class UserController extends Controller
     {
         return response([
             'user' => User::create($request->validated())
-        ], 201);
+        ], Response::HTTP_CREATED);
     }
 
     /**
@@ -59,7 +59,7 @@ class UserController extends Controller
     {
         return response([
             'user' => tap($user)->update($request->validated())
-        ], 202);
+        ], Response::HTTP_ACCEPTED);
     }
 
     /**
@@ -70,6 +70,6 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        return response([], 204);
+        return response([], Response::HTTP_NO_CONTENT);
     }
 }
