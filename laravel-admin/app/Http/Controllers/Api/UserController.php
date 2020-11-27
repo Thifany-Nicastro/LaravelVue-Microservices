@@ -59,7 +59,7 @@ class UserController extends Controller
     public function update(UserRequest $request, User $user)
     {
         return response([
-            'user' => tap($user)->update($request->validated())
+            'user' => new UserResource(tap($user)->update($request->validated()))
         ], Response::HTTP_ACCEPTED);
     }
 
