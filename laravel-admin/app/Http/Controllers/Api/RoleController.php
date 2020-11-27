@@ -15,7 +15,9 @@ class RoleController extends Controller
      */
     public function index()
     {
-        //
+        return response([
+            'roles' => Role::all()
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -26,7 +28,9 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return response([
+            'role' => Role::create($request->all())
+        ], Response::HTTP_CREATED);
     }
 
     /**
@@ -37,7 +41,9 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        //
+        return response([
+            'role' => $role
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -49,7 +55,9 @@ class RoleController extends Controller
      */
     public function update(Request $request, Role $role)
     {
-        //
+        return response([
+            'role' => tap($role)->update($request->all())
+        ], Response::HTTP_ACCEPTED);
     }
 
     /**

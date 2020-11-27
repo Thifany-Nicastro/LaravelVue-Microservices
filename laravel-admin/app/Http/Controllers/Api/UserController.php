@@ -70,6 +70,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        return response([], Response::HTTP_NO_CONTENT);
+        return response([
+            'user' => $user->delete()
+        ], Response::HTTP_NO_CONTENT);
     }
 }
