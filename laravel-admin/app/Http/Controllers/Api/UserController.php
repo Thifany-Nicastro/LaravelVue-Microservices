@@ -29,7 +29,10 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        return response(new UserResource(User::create($request->validated())->refresh()), Response::HTTP_CREATED);
+        return response(
+            new UserResource(User::create($request->validated())->refresh()), 
+            Response::HTTP_CREATED
+        );
     }
 
     /**
@@ -52,7 +55,10 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user)
     {
-        return response(new UserResource(tap($user)->update($request->validated())), Response::HTTP_ACCEPTED);
+        return response(
+            new UserResource(tap($user)->update($request->validated())), 
+            Response::HTTP_ACCEPTED
+        );
     }
 
     /**
@@ -63,6 +69,9 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        return response($user->delete(), Response::HTTP_NO_CONTENT);
+        return response(
+            $user->delete(), 
+            Response::HTTP_NO_CONTENT
+        );
     }
 }
