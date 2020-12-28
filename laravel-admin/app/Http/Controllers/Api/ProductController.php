@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Http\Requests\ProductRequest;
+use Illuminate\Http\Response;
+use App\Http\Resources\ProductResource;
 
 class ProductController extends Controller
 {
@@ -15,7 +18,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        return ProductResource::collection(Product::paginate());
     }
 
     /**
@@ -24,9 +27,12 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        //
+        return response(
+            new ProductResource(Product::create($request->validated())->refresh()), 
+            Response::HTTP_CREATED
+        );
     }
 
     /**
@@ -37,7 +43,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return new ProductResource($product);
     }
 
     /**
@@ -47,9 +53,12 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductRequest $request, Product $product)
     {
-        //
+        return response(
+            new ProductResource(tap($product)->update($request->validated())), 
+            Response::HTTP_ACCEPTED
+        );
     }
 
     /**
@@ -60,6 +69,9 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        return response(
+            $product->delete(), 
+            Response::HTTP_NO_CONTENT
+        );
     }
 }
