@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Response;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,11 +19,20 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('register', 'Api\AuthController@register');
-Route::post('login', 'Api\AuthController@login');
+Route::namespace('Api')->group(function () {
+    Route::post('register', 'AuthController@register');
+    Route::post('login', 'AuthController@login');
 
-Route::middleware(['auth:api'])->namespace('Api')->group(function () {
-    Route::apiResource('users', 'UserController');
-    Route::apiResource('roles', 'RoleController');
-    Route::apiResource('products', 'ProductController');
+    Route::middleware(['auth:api'])->group(function () {
+        Route::apiResource('users', 'UserController');
+        Route::apiResource('roles', 'RoleController');
+        Route::apiResource('products', 'ProductController');
+    });
+});
+
+Route::fallback(function () {
+    // return response()->json([
+    //     'message' => 'Page Not Found.'
+    // ], Response::HTTP_NOT_FOUND);
+    abort(Response::HTTP_NOT_FOUND, 'Page Not Found.');
 });

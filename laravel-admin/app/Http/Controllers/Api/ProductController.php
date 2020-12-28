@@ -8,9 +8,12 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
 use Illuminate\Http\Response;
 use App\Http\Resources\ProductResource;
+use App\Traits\Fileable;
 
 class ProductController extends Controller
 {
+    use Fileable;
+
     /**
      * Display a listing of the resource.
      *
@@ -29,8 +32,11 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
+        $validated = $request->validated();
+        $validated['image'] = $this->storeFile($request, 'image', 'products');
+
         return response(
-            new ProductResource(Product::create($request->validated())->refresh()), 
+            new ProductResource(Product::create($validated)->refresh()), 
             Response::HTTP_CREATED
         );
     }
