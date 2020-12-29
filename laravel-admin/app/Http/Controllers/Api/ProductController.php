@@ -8,12 +8,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
 use Illuminate\Http\Response;
 use App\Http\Resources\ProductResource;
-use App\Traits\Fileable;
 
 class ProductController extends Controller
 {
-    use Fileable;
-
     /**
      * Display a listing of the resource.
      *
