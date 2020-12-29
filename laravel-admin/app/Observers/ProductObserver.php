@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Product;
+use Ramsey\Uuid\Uuid;
 
 class ProductObserver
 {

@@ -6,6 +6,8 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Http\Response;
 
 class Handler extends ExceptionHandler
 {
@@ -39,15 +41,11 @@ class Handler extends ExceptionHandler
             //
         });
 
-        // $this->renderable(function (NotFoundHttpException $e, $request) {
-        //     return response()->json([
-        //         'message' => 'Entry for '.str_replace('App\\Models\\', '', $e->getPrevious()->getModel()).' not found'
-        //     ], $e->getStatusCode());
-        // });
-
-        // $this->renderable(function (ModelNotFoundException $e, $request) {
-        //     return response()->json(['message' => 'aaa'], 400);
-        // });
+        $this->renderable(function (AuthenticationException $e, $request) {
+            return response()->json([
+                'message' => 'User unauthenticated.'
+            ], Response::HTTP_UNAUTHORIZED);
+        });
     }
 
     public function prepareException(Throwable $e)

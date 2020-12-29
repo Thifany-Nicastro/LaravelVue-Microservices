@@ -19,23 +19,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware(['accept.json'])->group(function () {
-    Route::namespace('Api')->group(function () {
-        Route::post('register', 'AuthController@register');
-        Route::post('login', 'AuthController@login');
+Route::namespace('Api')->group(function () {
+    Route::post('register', 'AuthController@register');
+    Route::post('login', 'AuthController@login');
 
-        Route::middleware(['auth:api'])->group(function () {
-            Route::apiResource('users', 'UserController');
-            Route::apiResource('roles', 'RoleController');
-            Route::apiResource('products', 'ProductController');
-            Route::apiResource('files', 'StorageController');
-        });
+    Route::middleware(['auth:api'])->group(function () {
+        Route::apiResource('users', 'UserController');
+        Route::apiResource('roles', 'RoleController');
+        Route::apiResource('products', 'ProductController');
+        Route::apiResource('files', 'StorageController');
     });
+});
 
-    Route::fallback(function () {
-        // return response()->json([
-        //     'message' => 'Page Not Found.'
-        // ], Response::HTTP_NOT_FOUND);
-        abort(Response::HTTP_NOT_FOUND, 'Page Not Found.');
-    });
+Route::fallback(function () {
+    abort(Response::HTTP_NOT_FOUND, 'Page Not Found.');
 });

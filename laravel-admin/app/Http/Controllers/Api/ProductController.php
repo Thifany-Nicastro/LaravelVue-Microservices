@@ -33,7 +33,6 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         $validated = $request->validated();
-        // $validated['image'] = $this->storeFile($request, 'image', 'products');
 
         return response(
             new ProductResource(Product::create($validated)->refresh()), 
