@@ -34,7 +34,8 @@ class StorageController extends Controller
         $path = $file->storeAs($request->directory, $fileName, 'public');
 
         return response()->json([
-            'url' => config('app.url').'/'.Storage::url($path)
+            // 'url' => config('app.url').'/'.Storage::url($path)
+            'url' => $path
         ], Response::HTTP_CREATED);
     }
 
