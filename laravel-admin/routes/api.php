@@ -28,6 +28,7 @@ Route::middleware(['accept.json'])->group(function () {
             Route::apiResource('users', 'UserController');
             Route::apiResource('roles', 'RoleController');
             Route::apiResource('products', 'ProductController');
+            Route::apiResource('files', 'StorageController');
         });
     });
 

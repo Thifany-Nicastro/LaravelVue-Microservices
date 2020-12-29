@@ -39,14 +39,23 @@ class Handler extends ExceptionHandler
             //
         });
 
-        $this->renderable(function (NotFoundHttpException $e, $request) {
-            return response()->json([
-                'message' => 'Entry for '.str_replace('App\\Models\\', '', $e->getPrevious()->getModel()).' not found'
-            ], $e->getStatusCode());
-        });
+        // $this->renderable(function (NotFoundHttpException $e, $request) {
+        //     return response()->json([
+        //         'message' => 'Entry for '.str_replace('App\\Models\\', '', $e->getPrevious()->getModel()).' not found'
+        //     ], $e->getStatusCode());
+        // });
 
         // $this->renderable(function (ModelNotFoundException $e, $request) {
         //     return response()->json(['message' => 'aaa'], 400);
         // });
+    }
+
+    public function prepareException(Throwable $e)
+    {
+        if ($e instanceof ModelNotFoundException) {
+            $e = new NotFoundHttpException('Entry for '.str_replace('App\\Models\\', '', $e->getModel()).' not found');
+        }
+
+        return parent::prepareException($e);
     }
 }
