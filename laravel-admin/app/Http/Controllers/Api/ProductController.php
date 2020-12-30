@@ -29,10 +29,8 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        $validated = $request->validated();
-
         return response(
-            new ProductResource(Product::create($validated)->refresh()), 
+            new ProductResource(Product::create($request->validated())->refresh()), 
             Response::HTTP_CREATED
         );
     }

@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use App\Http\Requests\RoleRequest;
+use Illuminate\Http\Response;
+use App\Http\Resources\RoleResource;
 
 class RoleController extends Controller
 {
@@ -15,9 +18,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return response([
-            'roles' => Role::all()
-        ], Response::HTTP_OK);
+        return RoleResource::collection(Role::paginate());
     }
 
     /**
@@ -26,11 +27,15 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RoleRequest $request)
     {
-        return response([
-            'role' => Role::create($request->all())
-        ], Response::HTTP_CREATED);
+        $role = Role::create($request->validated());
+        $role->permissions()->sync($request->permissions);
+        
+        return response(
+            new RoleResource($role),
+            Response::HTTP_CREATED
+        );
     }
 
     /**
@@ -41,9 +46,7 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        return response([
-            'role' => $role
-        ], Response::HTTP_OK);
+        return new RoleResource($role);
     }
 
     /**
@@ -53,11 +56,14 @@ class RoleController extends Controller
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Role $role)
+    public function update(RoleRequest $request, Role $role)
     {
-        return response([
-            'role' => tap($role)->update($request->all())
-        ], Response::HTTP_ACCEPTED);
+        $role->permissions()->sync($request->permissions);
+
+        return response(
+            new RoleResource(tap($role)->update($request->validated())), 
+            Response::HTTP_ACCEPTED
+        );
     }
 
     /**
@@ -68,6 +74,11 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        //
+        $role->permissions()->delete();
+
+        return response(
+            $role->delete(), 
+            Response::HTTP_NO_CONTENT
+        );
     }
 }
