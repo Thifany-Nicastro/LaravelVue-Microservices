@@ -55,4 +55,9 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = Hash::make($value);
     }
+
+    public function hasPermission($value)
+    {
+        return $this->role->permissions->contains('name', $value);
+    }
 }
