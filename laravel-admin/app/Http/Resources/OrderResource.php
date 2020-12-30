@@ -22,6 +22,7 @@ class OrderResource extends JsonResource
                 'email' => $this->user->email
             ],//new UserResource($this->user),
             'items' => ItemResource::collection($this->products()->get()),
+            'total' => $this->total_value,
             'created_at' => $this->created_at
         ];
     }

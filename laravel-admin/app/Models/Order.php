@@ -24,6 +24,10 @@ class Order extends Model
 
     public function getTotalValueAttribute()
     {
-        //
+        $total = 0;
+        foreach ($this->products()->get() as $product) {
+            $total += $product->pivot->subtotal_value;
+        }
+        return $total;
     }
 }
