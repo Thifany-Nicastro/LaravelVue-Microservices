@@ -7,6 +7,8 @@ use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Resources\OrderResource;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\OrdersExport;
 
 class OrderController extends Controller
 {
@@ -63,5 +65,15 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         //
+    }
+
+    public function export()
+    {
+        $path = 'exports/orders.xlsx';
+        Excel::store(new OrdersExport, $path, 'public');
+
+        return response([
+            'url' => $path
+        ], Response::HTTP_CREATED);
     }
 }

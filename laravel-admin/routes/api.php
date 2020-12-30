@@ -24,6 +24,8 @@ Route::namespace('Api')->group(function () {
     Route::post('login', 'AuthController@login');
 
     Route::middleware(['auth:api'])->group(function () {
+        Route::get('orders/export', 'OrderController@export')->name('orders.export');
+
         Route::apiResource('users', 'UserController');
         Route::apiResource('roles', 'RoleController');
         Route::apiResource('products', 'ProductController');
