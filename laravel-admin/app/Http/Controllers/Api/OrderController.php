@@ -40,6 +40,12 @@ class OrderController extends Controller
     public function show(Order $order)
     {
         return new OrderResource($order);
+        // return [
+        //     'id' => $order->id,
+        //     'products' => [
+        //         $order->products()->get()
+        //     ]
+        // ];
     }
 
     /**

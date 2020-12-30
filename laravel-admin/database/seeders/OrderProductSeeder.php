@@ -23,7 +23,10 @@ class OrderProductSeeder extends Seeder
             foreach ($products as $product) {
                 $order->products()->attach(
                     $product->id,
-                    ['quantity' => rand(1,10)]
+                    [
+                        'quantity' => rand(1,10),
+                        'unit_price' => $product->price
+                    ]
                 );
             }
         }
