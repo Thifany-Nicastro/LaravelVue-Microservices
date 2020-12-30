@@ -20,8 +20,8 @@ class OrderResource extends JsonResource
                 'id' => $this->user->id,
                 'full_name' => $this->user->full_name,
                 'email' => $this->user->email
-            ],//new UserResource($this->user),
-            'items' => ItemResource::collection($this->products()->get()),
+            ],
+            'items' => ItemResource::collection($this->products),
             'total' => $this->total_value,
             'created_at' => $this->created_at
         ];
