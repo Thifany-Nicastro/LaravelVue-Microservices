@@ -31,6 +31,7 @@ Route::namespace('Api')->group(function () {
         Route::apiResource('products', 'ProductController');
         Route::apiResource('files', 'StorageController');
         Route::apiResource('orders', 'OrderController')->only(['index', 'show']);
+        Route::apiResource('permissions', 'PermissionController')->only('index');
     });
 });
 
