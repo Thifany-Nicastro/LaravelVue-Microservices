@@ -5,21 +5,21 @@
       {{ error.message }}
     </h5>
   </div>
-  <div v-if="users">
-    <UserList :users="users" />
+  <div v-else>
+    <RoleList :roles="roles" />
   </div>
 </template>
 
 <script>
 import getCollection from '@/composables/getCollection'
-import UserList from '@/components/UserList'
+import RoleList from '@/components/roles/RoleList'
 
 export default {
-  components: { UserList },
+  components: { RoleList },
   setup() {
-    const { error, documents: users } = getCollection('users')
+    const { error, documents: roles } = getCollection('roles')
 
-    return { error, users }
+    return { error, roles }
   }
 }
 </script>

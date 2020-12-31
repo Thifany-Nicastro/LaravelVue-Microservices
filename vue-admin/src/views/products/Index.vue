@@ -5,21 +5,21 @@
       {{ error.message }}
     </h5>
   </div>
-  <div v-if="users">
-    <UserList :users="users" />
+  <div v-else>
+    <ProductList :products="products" />
   </div>
 </template>
 
 <script>
 import getCollection from '@/composables/getCollection'
-import UserList from '@/components/UserList'
+import ProductList from '@/components/products/ProductList'
 
 export default {
-  components: { UserList },
+  components: { ProductList },
   setup() {
-    const { error, documents: users } = getCollection('users')
+    const { error, documents: products } = getCollection('products')
 
-    return { error, users }
+    return { error, products }
   }
 }
 </script>

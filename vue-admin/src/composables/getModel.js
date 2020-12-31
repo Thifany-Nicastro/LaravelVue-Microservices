@@ -2,6 +2,7 @@ import axios from 'axios'
 import { ref } from 'vue'
 
 const getModel = (resource, id) => {
+    
     const model = ref(null)
     const error = ref(null)
 

@@ -1,5 +1,13 @@
 <template>
-  <OrderList :orders="orders" />
+<div v-if="error">
+    <h5 class="center-align">
+      <i class="material-icons medium">error</i> <br>
+      {{ error.message }}
+    </h5>
+  </div>
+  <div v-if="orders">
+    <OrderList :orders="orders" />
+  </div>
 </template>
 
 <script>
