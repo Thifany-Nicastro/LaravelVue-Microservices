@@ -8,19 +8,17 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="order in orders" :key="order.id">
-        <td>{{ order.id }}</td>
-        <td>{{ order.customer.full_name }}</td>
-        <td>{{ order.total }}</td>
-      </tr>
+      <OrderList :orders="orders" />
     </tbody>
   </table>
 </template>
 
 <script>
 import getCollection from '../composables/getCollection'
+import OrderList from '../components/OrderList'
 
 export default {
+  components: { OrderList },
   setup() {
     const { error, documents: orders } = getCollection('orders')
 
