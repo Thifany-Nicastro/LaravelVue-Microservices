@@ -8,14 +8,18 @@
   <div v-if="orders">
     <OrderList :orders="orders" />
   </div>
+  <div v-else>
+    <Spinner />
+  </div>
 </template>
 
 <script>
+import Spinner from '@/components/ui/Spinner'
 import OrderList from '@/components/pages/orders/OrderList'
 import getCollection from '@/composables/getCollection'
 
 export default {
-  components: { OrderList },
+  components: { Spinner, OrderList },
   setup() {
     const { error, documents: orders } = getCollection('orders')
 

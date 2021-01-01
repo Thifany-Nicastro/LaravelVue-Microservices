@@ -14,12 +14,12 @@
 </template>
 
 <script>
-import UserList from '@/components/pages/users/UserList'
 import Spinner from '@/components/ui/Spinner'
+import UserList from '@/components/pages/users/UserList'
 import getCollection from '@/composables/getCollection'
 
 export default {
-  components: { UserList, Spinner },
+  components: { Spinner, UserList },
   setup() {
     const { error, documents: users } = getCollection('users')
 
