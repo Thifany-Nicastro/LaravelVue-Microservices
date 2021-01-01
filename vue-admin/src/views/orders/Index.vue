@@ -11,8 +11,8 @@
 </template>
 
 <script>
+import OrderList from '@/components/pages/orders/OrderList'
 import getCollection from '@/composables/getCollection'
-import OrderList from '@/components/OrderList'
 
 export default {
   components: { OrderList },

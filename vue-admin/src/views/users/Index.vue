@@ -8,14 +8,18 @@
   <div v-if="users">
     <UserList :users="users" />
   </div>
+  <div v-else>
+    <Spinner />
+  </div>
 </template>
 
 <script>
+import UserList from '@/components/pages/users/UserList'
+import Spinner from '@/components/ui/Spinner'
 import getCollection from '@/composables/getCollection'
-import UserList from '@/components/UserList'
 
 export default {
-  components: { UserList },
+  components: { UserList, Spinner },
   setup() {
     const { error, documents: users } = getCollection('users')
 

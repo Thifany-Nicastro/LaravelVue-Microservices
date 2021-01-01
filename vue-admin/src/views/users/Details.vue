@@ -11,8 +11,8 @@
 </template>
 
 <script>
+import SingleUser from '@/components/pages/users/SingleUser'
 import getModel from '@/composables/getModel'
-import SingleUser from '@/components/SingleUser'
 
 export default {
   props: ['id'],

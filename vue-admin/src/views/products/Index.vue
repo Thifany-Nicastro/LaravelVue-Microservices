@@ -11,8 +11,8 @@
 </template>
 
 <script>
+import ProductList from '@/components/pages/products/ProductList'
 import getCollection from '@/composables/getCollection'
-import ProductList from '@/components/products/ProductList'
 
 export default {
   components: { ProductList },

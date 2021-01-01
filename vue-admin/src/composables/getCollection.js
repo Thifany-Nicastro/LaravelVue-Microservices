@@ -2,6 +2,7 @@ import axios from 'axios'
 import { ref } from 'vue'
 
 const getCollection = (collection, query) => {
+    
     const documents = ref(null)
     const error = ref(null)
 

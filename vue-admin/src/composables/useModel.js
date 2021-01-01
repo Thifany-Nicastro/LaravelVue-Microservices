@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { ref } from 'vue'
 
-const useCollection = (collection, id) => {
+const useModel = (collection, id) => {
 
     const deleteItem = async () => {
         await axios.delete(`http://localhost:8000/api/${collection}/${id}`, {
@@ -24,4 +24,4 @@ const useCollection = (collection, id) => {
     return { deleteItem, updateItem }
 }
 
-export default useCollection
+export default useModel

@@ -11,8 +11,8 @@
 </template>
 
 <script>
+import RoleList from '@/components/pages/roles/RoleList'
 import getCollection from '@/composables/getCollection'
-import RoleList from '@/components/roles/RoleList'
 
 export default {
   components: { RoleList },

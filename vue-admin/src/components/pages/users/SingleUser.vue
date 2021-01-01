@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import useCollection from '@/composables/useCollection'
+import useModel from '@/composables/useModel'
 
 export default {
   props: ['user'],
