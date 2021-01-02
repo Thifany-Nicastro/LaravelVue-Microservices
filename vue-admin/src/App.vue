@@ -1,17 +1,18 @@
 <template>
   <template v-if="route.name !== 'Login'">
     <Navbar />
-    <div class="row">
-      <div class="col s3">
+    <div class="columns mt-5 is-centered">
+      <div class="column is-2">
         <Sidebar />
       </div>
-      <div class="col s9">
-        <router-view/>
+      <div class="column is-8">
+        <div class="card p-3">
+          <router-view/>
+        </div>
       </div>
     </div>
   </template>
   <template v-else>
-    aaa
     <router-view/>
   </template>
 </template>

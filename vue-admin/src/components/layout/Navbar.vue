@@ -1,23 +1,37 @@
 <template>
-<div class="navbar-fixed">
-  <nav>
-    <div class="nav-wrapper">
-      <a href="#" class="brand-logo">Logo</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><router-link :to="{ name: 'Login' }">Login</router-link></li>
-        <li><router-link to="/">Logout</router-link></li>
-      </ul>
-    </div>
-  </nav>
-  </div>
+	<nav class="navbar has-background-light" role="navigation" aria-label="main navigation">
+		<div class="navbar-brand">
+			<a class="navbar-item" href="https://bulma.io">
+				<img src="https://bulma.io/images/bulma-logo.png" width="112" height="28"/>
+			</a>
+
+			<a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+				<span aria-hidden="true"></span>
+				<span aria-hidden="true"></span>
+				<span aria-hidden="true"></span>
+			</a>
+		</div>
+
+		<div id="navbarBasicExample" class="navbar-menu">
+			<div class="navbar-end">
+				<div class="navbar-item">
+					<div class="buttons">
+						<router-link :to="{ name: 'Login' }" class="button is-primary">
+							<b>Login</b>
+						</router-link>
+						<router-link to="/" class="button is-light">
+							Logout
+						</router-link>
+					</div>
+				</div>
+			</div>
+		</div>
+	</nav>
 </template>
 
 <script>
-export default {
-
-}
+	export default {};
 </script>
 
 <style>
-
 </style>

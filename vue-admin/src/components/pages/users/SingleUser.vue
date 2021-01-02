@@ -1,41 +1,49 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <form class="col s12">
-        <div class="row">
-          <div class="input-field col s6">
-            <input id="first_name" type="text" :value="user.first_name">
-            <label for="first_name" class="active">First Name</label>
-          </div>
-          <div class="input-field col s6">
-            <input id="last_name" type="text" :value="user.last_name">
-            <label for="last_name" class="active">Last Name</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <input id="email" type="email" :value="user.email">
-            <label for="email" class="active">Email</label>
-          </div>
-        </div>
-      </form>
+  <form>
+    <div class="field">
+      <label class="label">Name</label>
+      <div class="control">
+        <input class="input" type="text" v-model="firstName">
+      </div>
     </div>
-  </div>
+
+    <div class="field">
+      <label class="label">Email</label>
+      <div class="control">
+        <input class="input" type="email" v-model="email">
+      </div>
+    </div>
+
+    <div class="field is-grouped">
+      <div class="control">
+        <button class="button is-link">Submit</button>
+      </div>
+      <div class="control">
+        <router-link :to="{ name: 'Users' }" class="button is-link is-light">
+          Cancel
+        </router-link>
+      </div>
+    </div>
+  </form>
+  
 </template>
 
 <script>
 import useModel from '@/composables/useModel'
+import { ref } from 'vue'
 
 export default {
   props: ['user'],
   setup(props) {
     // const { deleteItem, updateItem } = useCollection('users', props.user.id)
+    const firstName = ref(props.user.first_name)
+    const email = ref(props.user.email)
 
     // const handleDelete = async () => {
     //   await deleteItem()
     // }
 
-    // return { handleDelete }
+    return { email, firstName }
   }
 }
 </script>
