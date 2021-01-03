@@ -7,6 +7,18 @@ import Roles from '@/views/roles/Index.vue'
 import Users from '@/views/users/Index.vue'
 import UserDetails from '@/views/users/Details.vue'
 
+// import { getUser } from '@/composables/getUser.js';
+
+const requireAuth = (to, from, next) => {
+  // let user = getUser()
+  let user = localStorage.getItem('user-token')
+  if (!user) {
+    next({ name: 'Login' })
+  } else {
+    next()
+  }
+}
+
 const routes = [
   {
     path: '/',
@@ -26,23 +38,27 @@ const routes = [
   {
     path: '/users',
     name: 'Users',
-    component: Users
+    component: Users,
+    beforeEnter: requireAuth
   },
   {
     path: '/users/:id',
     name: 'UserDetails',
     component: UserDetails,
     props: true,
+    beforeEnter: requireAuth
   },
   {
     path: '/products',
     name: 'Products',
-    component: Products
+    component: Products,
+    beforeEnter: requireAuth
   },
   {
     path: '/roles',
     name: 'Roles',
-    component: Roles
+    component: Roles,
+    beforeEnter: requireAuth
   },
 ]
 

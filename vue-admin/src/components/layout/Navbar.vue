@@ -19,9 +19,9 @@
 						<router-link :to="{ name: 'Login' }" class="button is-primary">
 							<b>Login</b>
 						</router-link>
-						<router-link to="/" class="button is-light">
+						<button class="button is-light" @click="handleLogout">
 							Logout
-						</router-link>
+						</button>
 					</div>
 				</div>
 			</div>
@@ -30,7 +30,22 @@
 </template>
 
 <script>
-	export default {};
+import useLogout from '@/composables/useLogout'
+import { useRouter } from 'vue-router'
+
+export default {
+	setup() {
+		// const { error, login, isPending } = useLogout()
+		const router = useRouter()
+
+		const handleLogout = () => {
+			localStorage.clear()
+			router.push({ name: 'Login' })
+		}
+
+		return { handleLogout }
+	}
+};
 </script>
 
 <style>

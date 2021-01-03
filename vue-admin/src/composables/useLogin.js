@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { ref } from 'vue'
 
 const error = ref(null)
@@ -7,17 +8,21 @@ const login = async (email, password) => {
     error.value = null
     isPending.value = true
 
-    try {
-        const res = await projectAuth.signInWithEmailAndPassword(email, password)
+    await axios.post(`/login`, {
+        email: email,
+        password: password
+    })
+    .then(res => {
         error.value = null
         isPending.value = false
-        return res
-    }
-    catch (err) {
+        localStorage.setItem('user-token', res.data.access_token)
+        localStorage.setItem('user-email', res.data.email)
+    })
+    .catch(err => {
         console.log(err.message)
         error.value = 'Incorrect login credentials'
         isPending.value = false
-    }
+    })
 }
 
 const useLogin = () => {
